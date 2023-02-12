@@ -14,26 +14,21 @@ app.use(cors());
 app.listen(3001, () => console.log("Server is listening on port 3001"));
 
 // Error handling function
-function handleError(err) {
+function handleError(res, err) {
   if (err.response) {
     console.log(err.response.status);
     console.log(err.response.data);
+    res.status(400).send(err.response.data);
   } else {
     console.log(err.message);
+    res.status(400).json({ err: err.message });
   }
 }
-
-// @        /
-// method   GET
-// desc     Return "You're on /"
-app.get("/", function (req, res) {
-  res.status(200).json({ msg: "You're on /" });
-});
 
 // @        /generateImage
 // method   POST
 // desc.    Return Image After Given Prompt
-app.post("/generateImage", async function (req, res) {
+app.post("/generateImage", async function (req, res, next) {
   try {
     const image = await openai.createImage({
       prompt: req.body.prompt,
@@ -42,6 +37,6 @@ app.post("/generateImage", async function (req, res) {
     });
     res.status(200).json({ imageUrl: image.data.data[0].url });
   } catch (error) {
-    handleError(error);
+    handleError(res, error);
   }
 });

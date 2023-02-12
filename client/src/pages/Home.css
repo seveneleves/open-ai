@@ -1,0 +1,28 @@
+.service-container a:first-child {
+  color: #126efd;
+  border-color: #126efd;
+}
+
+.service-container a:first-child:hover {
+  background-color: #126efd;
+}
+
+.service-container a:last-child {
+  color: #8c68cd;
+  border-color: #8c68cd;
+}
+
+.service-container a:last-child:hover {
+  background-color: #8c68cd;
+}
+
+.service-container a:hover {
+  cursor: pointer;
+  color: white;
+  transition: 0.2s ease-out;
+}
+
+.service {
+  border-width: 2px;
+  border-style: solid;
+}
